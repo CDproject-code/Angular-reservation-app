@@ -1,0 +1,57 @@
+<app-home></app-home>
+
+<h3 class="my-5">Reservation Form</h3>
+
+<form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label" for="name">Name:</label>
+            <input class="form-control" id="name" type="text" formControlName="name" required />
+            <div *ngIf="reservationForm.get('name')?.invalid && reservationForm.get('name')?.touched">
+                <small class="text-danger" *ngIf="reservationForm.get('name')?.errors?.['required']">Name is required.</small>
+                <small class="text-danger" *ngIf="reservationForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</small>
+            </div>
+        </div>
+
+        <div class="col">
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-control" id="email" type="email" formControlName="email" required />
+            <div *ngIf="reservationForm.get('email')?.invalid && reservationForm.get('email')?.touched">
+                <small class="text-danger" *ngIf="reservationForm.get('email')?.errors?.['required']">Email is required.</small>
+                <small class="text-danger" *ngIf="reservationForm.get('email')?.errors?.['email']">Invalid email format.</small>
+            </div>  
+        </div>
+    </div>
+
+    <div class="row  mb-3">
+        <div class="col">
+            <label class="form-label" for="checkIn">Check-in Date:</label>
+            <input class="form-control" id="checkIn" type="date" formControlName="checkIn" required />
+            <div *ngIf="reservationForm.get('checkIn')?.invalid && reservationForm.get('checkIn')?.touched">
+                <small class="text-danger" *ngIf="reservationForm.get('checkIn')?.errors?.['required']">Check-in date is required.</small>
+            </div>
+        </div>
+
+        <div class="col">
+            <label class="form-label" for="checkOut">Check-out Date:</label>
+            <input class="form-control" id="checkOut" type="date" formControlName="checkOut" required />
+            <div *ngIf="reservationForm.get('checkOut')?.invalid && reservationForm.get('checkOut')?.touched">
+                <small class="text-danger" *ngIf="reservationForm.get('checkOut')?.errors?.['required']">Check-out date is required.</small>
+                <small class="text-danger" *ngIf="reservationForm.get('checkOut')?.errors?.['minDate']">Check-out must be after check-in.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  mb-3">
+        <div class="col">
+            <label class="form-label">Room number:</label>
+            <input class="form-control" type="number" formControlName="roomNumber" required />
+            <div *ngIf="reservationForm.get('roomNumber')?.invalid && reservationForm.get('roomNumber')?.touched">
+                <small class="text-danger" *ngIf="reservationForm.get('roomNumber')?.errors?.['required']">Room number is required.</small>
+                <small class="text-danger" *ngIf="reservationForm.get('roomNumber')?.errors?.['min']">Room number must be at least 1.</small>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="reservationForm.invalid">Submit</button>
+</form>
